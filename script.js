@@ -17,4 +17,27 @@ async function fetchBooks() {
   }
 }
 
+async function addNewBook() {
+  const title = document.getElementById('book-title').value;
+  const author = document.getElementById('book-author').value;
+
+  try {
+      const response = await fetch(`${API_BASE_URL}/books`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ title, author })
+      });
+      const data = await response.json();
+      if (data.success) {
+          fetchBooks(); // Refresh the book list after adding a new book
+      } else {
+          console.error('Error adding book:', data.message);
+      }
+  } catch (error) {
+      console.error('Error adding book:', error);
+  }
+}
+
 fetchBooks();

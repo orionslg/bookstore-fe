@@ -30,13 +30,10 @@ async function addNewBook() {
           body: JSON.stringify({ title, author })
       });
       const data = await response.json();
-      if (data.success) {
-          fetchBooks(); // Refresh the book list after adding a new book
-      } else {
-          console.error('Error adding book:', data.message);
-      }
   } catch (error) {
       console.error('Error adding book:', error);
+  } finally {
+      fetchBooks(); // Refresh the book list after adding a new book
   }
 }
 

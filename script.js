@@ -37,4 +37,16 @@ async function addNewBook() {
   }
 }
 
+async function fetchBookById() {
+  const bookId = document.getElementById('book-id').value;
+  try {
+      const response = await fetch(`${API_BASE_URL}/books/${bookId}`);
+      const book = await response.json();
+      const bookDetails = document.getElementById('book-details');
+      bookDetails.innerHTML = `Title: ${book.title}<br>Author: ${book.author}`;
+  } catch (error) {
+      console.error('Error fetching book:', error);
+  }
+}
+
 fetchBooks();
